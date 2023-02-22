@@ -1,0 +1,49 @@
+services:
+  springboot-todo-service:
+    image:  ghcr.io/ammbra/springboot-todo-app:1.0.0
+    container_name:  springboot-todo-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      JDK_JAVA_OPTIONS: > 
+        -XX:StartFlightRecording:filename=/recordings/recording.jfr,settings=myprofile.jfc,maxage=5m,dumponexit=true
+        -XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -XX:+PreserveFramePointer -XX:NativeMemoryTracking=summary
+    volumes:
+      - ./recordings:/recordings
+    ports:
+      - 8080:8080
+      - 1099:1099
+    networks:
+      default: null
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - 9090:9090
+    links:
+      - springboot-todo-service
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      default: null
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    links:
+      - prometheus
+      - jfr-data-source
+    volumes:
+      - ./grafana/grafana-datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ./grafana/grafana-all-dashboards.yml:/etc/grafana/provisioning/dashboards/all.yml
+      - ./grafana/grafana-todo-dashboard.json:/var/lib/grafana/dashboards/grafana-todo-dashboard.json
+    environment:
+      GF_INSTALL_PLUGINS: grafana-simple-json-datasource
+    networks:
+      default: null
+
+networks:
+  default:
+    name: backend
