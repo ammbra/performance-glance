@@ -36,7 +36,6 @@ services:
       - 3000:3000
     links:
       - prometheus
-      - jfr-data-source
     volumes:
       - ./grafana/grafana-datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
       - ./grafana/grafana-all-dashboards.yml:/etc/grafana/provisioning/dashboards/all.yml
