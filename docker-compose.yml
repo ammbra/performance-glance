@@ -1,14 +1,16 @@
 services:
   springboot-todo-service:
+#    image:  ghcr.io/ammbra/springboot-todo-bad:1.0.0
     image:  ghcr.io/ammbra/springboot-todo-app:1.0.0
-    container_name:  springboot-todo-service
     build:
       context: .
       dockerfile: Dockerfile
+    container_name:  springboot-todo-service
     environment:
-      JDK_JAVA_OPTIONS: > 
+      JDK_JAVA_OPTIONS: >
+        -XX:+UnlockExperimentalVMOptions -XX:-UseFastUnorderedTimeStamps -XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -XX:+PreserveFramePointer 
         -XX:StartFlightRecording:filename=/recordings/recording.jfr,settings=myprofile.jfc,maxage=5m,dumponexit=true
-        -XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -XX:+PreserveFramePointer -XX:NativeMemoryTracking=summary
+        -XX:NativeMemoryTracking=summary -Xms256m -Xmx750m -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=70
     volumes:
       - ./recordings:/recordings
     ports:
@@ -43,7 +45,6 @@ services:
       GF_INSTALL_PLUGINS: grafana-simple-json-datasource
     networks:
       default: null
-
 networks:
   default:
     name: backend

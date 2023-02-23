@@ -10,8 +10,8 @@
     <packaging>jar</packaging>
 
     <name>spring-todo-app</name>
-    <description>A Simple Spring Boot TODO list application using AngularJS and
-        H2 Spring boot starter
+    <description>
+        A Spring Boot TODO application using AngularJS and H2 Spring boot starter
     </description>
 
     <parent>
@@ -47,7 +47,7 @@
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
-<!--            <scope>runtime</scope>-->
+            <scope>runtime</scope>
         </dependency>
         <!-- Databases - Uses H2 by default -->
         <dependency>

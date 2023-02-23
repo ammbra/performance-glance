@@ -26,7 +26,6 @@ public class TodoController {
         this.todoRepository = todoRepository;
     }
 
-
     @RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> getAllTodoItems() {
         logger.debug("GET request access '/api/todo' path.");
@@ -51,6 +50,7 @@ public class TodoController {
             return new ResponseEntity<>("Entity creation failed", HttpStatus.CONFLICT);
         }
     }
+
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> updateTodoItem(@RequestBody Todo item) {
         logger.debug("PUT request access '/api/todo' path with item {}", item);

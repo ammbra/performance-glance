@@ -10,5 +10,3 @@ then
   echo "jmap -histo 1"
   docker exec -it springboot-todo-service sh -c "jmap -histo 1 > /recordings/histoe.txt"
 fi
-
-# docker exec -it springboot-todo-service sh -c "jstatd -J-Djava.security.policy=jstatd.tools.policy -J-Djava.rmi.server.logCalls=true -J-Djava.rmi.server.hostname=localhost"

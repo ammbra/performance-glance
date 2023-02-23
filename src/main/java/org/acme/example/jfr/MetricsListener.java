@@ -1,5 +1,6 @@
 package org.acme.example.jfr;
 
+import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import jakarta.annotation.PostConstruct;
@@ -8,6 +9,7 @@ import jakarta.servlet.ServletContextListener;
 import jdk.jfr.consumer.RecordingStream;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 
 import static jdk.jfr.FlightRecorder.register;
 
@@ -24,7 +26,7 @@ public class MetricsListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        CompositeMeterRegistry metricsRegistry = io.micrometer.core.instrument.Metrics.globalRegistry;
+        CompositeMeterRegistry metricsRegistry = Metrics.globalRegistry;
         ServletContextListener.super.contextInitialized(sce);
         recordingStream = new RecordingStream();
         recordingStream.enable(RestEndpointInvocationEvent.NAME);
@@ -34,11 +36,9 @@ public class MetricsListener implements ServletContextListener {
             String method = event.getString("method");
             String name = ((path.length()>1) ? (path.replaceAll("/",".") + ".") : "") + method.toLowerCase();
             Timer timer = metricsRegistry.find(name).timer();
-            if (timer  == null) {
-                Timer.builder(name).description("Metrics for " + path + " (" + method + ")").register(metricsRegistry).record(event.getDuration());
-            } else {
-                timer.record(event.getDuration());
-            }
+            Objects.requireNonNullElseGet(timer, () -> {
+                return Timer.builder(name).description("Metrics for " + path + " (" + method + ")").register(metricsRegistry);
+            }).record(event.getDuration());
         });
 
         recordingStream.startAsync();
