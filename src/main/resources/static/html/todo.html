@@ -1,12 +1,9 @@
-<div class="jumbotron" style="background-color:transparent !important;">
-
-</div>
 <div ng-init="populate()" style="margin-bottom: 40px !important;">
     <h1>Todo App</h1>
     <p>This project uses Spring Boot, H2 and Java 19  to create a  todo app.</p>
     <div style="height: 70px !important;">
-        <div class="alert alert-danger" data-ng-show="error && error !== ''"><strong>Operation failed!</strong>&nbsp;{{error}}</div>
-        <div class="alert alert-success" data-ng-show="loadingMessage && loadingMessage !== ''"><strong>Congrats!</strong>&nbsp;{{loadingMessage}}</div>
+        <div class="alert alert-danger" data-ng-show="error && error !== ''"><strong>Operation did not succeed!</strong>&nbsp;{{error}}</div>
+        <div class="alert alert-success" data-ng-show="loadingMessage && loadingMessage !== ''"><strong>Congratulations!</strong>&nbsp;{{loadingMessage}}</div>
     </div>
     <div class="panel">
         <div class="input-group" style="margin-bottom: 20px !important;">
@@ -15,20 +12,20 @@
                 <button ng-click="add()" class="btn btn-primary">Add</button>
             </span>
         </div>
-        <ul class="list-group" id="todolist">
+        <ul class="list-group" id="todo">
             <div class="list-group-item list-group-item-action flex-column align-items-start" data-ng-repeat="item in todoList">
                 <div data-ng-hide="item.edit">
-                    <button type="button" class="btn btn-success float-right btn-sm" ng-disabled="item.finished" data-ng-click="editSwitch(item)">Edit</button>
-                    <button type="button" class="btn btn-danger float-right btn-sm" data-ng-click="delete(item.id)">Delete</button>
-                    <input type="checkbox" data-ng-model="item.finished" data-ng-change="finishSwitch(item)"/>
-                    <span data-ng-hide="item.finished">{{item.content}}</span>
-                    <span data-ng-show="item.finished"><del>{{item.content}}</del></span>
+                    <button type="button" class="btn btn-success btn-sm float-end" ng-disabled="item.done" data-ng-click="edit(item)">Edit</button>
+                    <button type="button" class="btn btn-danger btn-sm float-end" data-ng-click="delete(item.id)">Delete</button>
+                    <input type="checkbox" data-ng-model="item.done" data-ng-change="finish(item)"/>
+                    <span data-ng-hide="item.done">{{item.content}}</span>
+                    <span data-ng-show="item.done"><del>{{item.content}}</del></span>
                 </div>
                 <div data-ng-show="item.edit" class="input-group">
                     <input class="form-control" data-ng-model="editTodo.content" />
                     <span class="input-group-btn">
                         <button type="button" data-ng-click="update(item)" class="btn btn-primary float-right btn-sm">Save</button>
-                        <button type="button" data-ng-click="editSwitch(item)"  class="btn btn-secondary float-right btn-sm">Cancel</button>
+                        <button type="button" data-ng-click="edit(item)"  class="btn btn-secondary float-right btn-sm">Cancel</button>
                     </span>
                 </div>
             </div>

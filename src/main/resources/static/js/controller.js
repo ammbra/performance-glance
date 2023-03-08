@@ -13,20 +13,20 @@ angular.module('todo')
             finish: false
         };
 
-        $scope.finishSwitch = function (todo) {
+        $scope.finish = function (todo) {
             service.putItem(todo).error(function (err) {
-                todo.finished = !todo.finished;
+                todo.done = !todo.done;
                 $scope.error = err;
                 $scope.loadingMessage = '';
             })
         };
 
-        $scope.editSwitch = function (todo) {
+        $scope.edit = function (todo) {
             todo.edit = !todo.edit;
             if (todo.edit) {
                 $scope.editTodo.content = todo.content;
                 $scope.editTodo.id = todo.id;
-                $scope.editTodo.finished = todo.finished;
+                $scope.editTodo.done = todo.done;
                 $scope.editingInProgress = true;
             } else {
                 $scope.editingInProgress = false;

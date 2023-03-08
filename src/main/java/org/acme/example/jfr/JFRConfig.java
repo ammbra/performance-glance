@@ -15,7 +15,6 @@ public class JFRConfig {
 		registrationBean.setFilter(new FlightRecorderFilter());
 		registrationBean.addUrlPatterns("/api/todo/*");
 		return registrationBean;
-
 	}
 
 	@Bean
