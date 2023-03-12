@@ -1,25 +1,37 @@
 package org.acme.example.model;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import org.springframework.data.annotation.CreatedDate;
 
+import java.util.Date;
 import java.util.Objects;
-import java.util.Vector;
+import java.util.UUID;
 
 @Entity
 @Table(name = "todo")
 public class Todo {
 
-    private String id;
+    @Id
+    @Column(name = "ID")
+    private UUID id;
+
     private String content;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_on")
+    @CreatedDate
+    private Date createdOn;
+
     private String owner;
 
     public Todo() {
     }
 
-    public Todo(String id, String content, String owner) {
+    public Todo(UUID id, String content, String owner) {
         this.content = content;
         this.id = id;
         this.owner = owner;
@@ -42,11 +54,19 @@ public class Todo {
         this.owner = owner;
     }
 
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
+
     @Id
-    public String getId() {
+    public UUID getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

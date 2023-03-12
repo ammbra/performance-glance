@@ -9,7 +9,7 @@ services:
     environment:
       JDK_JAVA_OPTIONS: >
         -XX:+UnlockExperimentalVMOptions -XX:-UseFastUnorderedTimeStamps -XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -XX:+PreserveFramePointer 
-        -XX:StartFlightRecording:filename=/recordings/recording.jfr,settings=myprofile.jfc,maxage=5m,dumponexit=true
+        -XX:StartFlightRecording:filename=recordings/recording.jfr,settings=myprofile.jfc,maxage=5m,dumponexit=true
         -XX:NativeMemoryTracking=summary -Xms256m -Xmx750m -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=70
     volumes:
       - ./recordings:/recordings

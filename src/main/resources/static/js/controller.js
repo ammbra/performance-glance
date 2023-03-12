@@ -10,10 +10,10 @@ angular.module('todo')
         $scope.editTodo = {
             content: '',
             id: 0,
-            finish: false
+            done: false
         };
 
-        $scope.finish = function (todo) {
+        $scope.done = function (todo) {
             service.putItem(todo).error(function (err) {
                 todo.done = !todo.done;
                 $scope.error = err;
@@ -64,18 +64,18 @@ angular.module('todo')
                 $scope.loadingMessage = '';
             })
         };
-        
+
         $scope.add = function () {
-            function getUser() {
-                var user = localStorage.getItem('user') || 'unknown';
-                localStorage.setItem('user', user);
-                return user;
+            function getOwner() {
+                var owner = localStorage.getItem('owner') || 'unknown';
+                localStorage.setItem('owner', owner);
+                return owner;
             }
 
             service.postItem({
                 'content': $scope.new,
-                'owner': getUser(),
-                'finish': 'false'
+                'owner': getOwner(),
+                'done': 'false'
             }).success(function (results) {
                 $scope.newTodoCaption = '';
                 $scope.populate();

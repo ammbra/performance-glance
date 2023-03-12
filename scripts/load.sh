@@ -1,14 +1,17 @@
 #!/bin/bash
 while true
 do
-  hey -z 10s -c 10 -m POST -H "Content-Type: application/json" -d '{"content":"now","owner":"unknown","finish":"false"}' http://localhost:8080/api/todo
-  hey -z 10s -c 10 -m POST -H "Content-Type: application/json" -d '{"content":"now","owner":"unknown","finish":"false"}' http://localhost:8082/api/todo
-  sleep 90;
-  hey -z 10s -c 10 -m PUT -H "Content-Type: application/json" -d '{ id: "1ff78fc9-3b45-43d6-ae34-8459b9eb91ad", "content": "now", "owner": "unknown" }' http://localhost:8080/api/todo
-  hey -z 10s -c 10 -m PUT -H "Content-Type: application/json" -d '{ id: "1ff78fc9-3b45-43d6-ae34-8459b9eb91ad", "content": "now", "owner": "unknown" }' http://localhost:8082/api/todo
-  sleep 90;
-  hey -z 10s -c 10 -m GET -H "Content-Type: application/json"  http://localhost:8080/api/todo
-  hey -z 10s -c 10 -m GET -H "Content-Type: application/json"  http://localhost:8082/api/todo
-  sleep 90;
-
+  hey -z 3s -c 3 -m POST -H "Content-Type: application/json" -d '{"content":"wow","owner":"unknown","done":"false"}' http://localhost:8080/api/todo
+  json=$(curl http://localhost:8080/api/todo)
+  echo $json
+  for i in $(echo "$json" |jq -r ".[] | .id")
+    do
+     curl -X PUT -H "Content-Type: application/json" -d '{ "id" : "'$i'", "content": "now_'$i'"}' http://localhost:8080/api/todo
+    done
+  sleep 10;
+  for i in $(echo "$json" |jq -r ".[] | .id")
+      do
+        curl -X DELETE -H "Content-Type: application/json" http://localhost:8080/api/todo/$i
+      done
+  sleep 10;
 done

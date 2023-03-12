@@ -6,7 +6,10 @@ import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
+import jakarta.servlet.annotation.WebFilter;
 import jdk.jfr.consumer.RecordingStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -14,14 +17,15 @@ import java.util.Objects;
 import static jdk.jfr.FlightRecorder.register;
 
 @Component
-public class MetricsListener implements ServletContextListener {
+public class CustomMetricsListener implements ServletContextListener {
 
     private RecordingStream recordingStream;
+    Logger logger = LoggerFactory.getLogger(CustomMetricsListener.class);
 
     @PostConstruct
     public void init() {
         register(RestEndpointInvocationEvent.class);
-        System.out.println("#### Registered");
+        logger.info("#### Registered");
     }
 
     @Override

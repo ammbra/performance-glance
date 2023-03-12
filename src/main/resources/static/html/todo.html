@@ -17,7 +17,7 @@
                 <div data-ng-hide="item.edit">
                     <button type="button" class="btn btn-success btn-sm float-end" ng-disabled="item.done" data-ng-click="edit(item)">Edit</button>
                     <button type="button" class="btn btn-danger btn-sm float-end" data-ng-click="delete(item.id)">Delete</button>
-                    <input type="checkbox" data-ng-model="item.done" data-ng-change="finish(item)"/>
+                    <input type="checkbox" data-ng-model="item.done" data-ng-change="done(item)"/>
                     <span data-ng-hide="item.done">{{item.content}}</span>
                     <span data-ng-show="item.done"><del>{{item.content}}</del></span>
                 </div>

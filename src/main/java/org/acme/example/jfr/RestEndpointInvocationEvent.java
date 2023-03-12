@@ -9,7 +9,7 @@ import jdk.jfr.*;
 @StackTrace(false)
 public class RestEndpointInvocationEvent extends Event {
 
-    static final String NAME = "org.acme.example.jfr.RestController";
+    static final String NAME = "org.acme.example.RestController";
 
     @Label("Resource Method")
     public String method;

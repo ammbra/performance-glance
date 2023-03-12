@@ -21,7 +21,7 @@ public class JFRConfig {
 	ServletListenerRegistrationBean<ServletContextListener> servletListener() {
 		ServletListenerRegistrationBean<ServletContextListener> srb
 				= new ServletListenerRegistrationBean<>();
-		srb.setListener(new MetricsListener());
+		srb.setListener(new CustomMetricsListener());
 		return srb;
 	}
 

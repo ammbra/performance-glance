@@ -39,25 +39,9 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 		CompositeMeterRegistry metricsRegistry = Metrics.globalRegistry;
 
 		try (var es = EventStream.openRepository()) {
-			es.onEvent(JDK_CPULOAD, recordedEvent -> {
-				Gauge.builder(JDK_CPULOAD + MACHINE_TOTAL, recordedEvent, e -> 100 * e.getFloat(MACHINE_TOTAL))
-						.description(JDK_CPULOAD + "Machine total %").register(metricsRegistry);
-				Gauge.builder(JDK_CPULOAD + JVM_USER, recordedEvent, e -> 100 * e.getFloat(JVM_USER))
-						.description(JDK_CPULOAD + "JVM User %").register(metricsRegistry);
-				Gauge.builder(JDK_CPULOAD + JVM_SYSTEM, recordedEvent, e -> 100 * e.getFloat(JVM_SYSTEM))
-						.description(JDK_CPULOAD + "JVM System %").register(metricsRegistry);
-			});
+			extractJDKCpuLoadToGauge(metricsRegistry, es);
 
-			es.onEvent(JDK_GARBAGE_COLLECTION, recordedEvent -> {
-				List<Tag> tags = Arrays.asList(new ImmutableTag(NAME, recordedEvent.getString(NAME)),
-						new ImmutableTag(CAUSE, recordedEvent.getString(CAUSE)));
-				Gauge.builder(JDK_GARBAGE_COLLECTION + SUM_OF_PAUSES,
-								recordedEvent, e -> e.getDuration(SUM_OF_PAUSES).toMillis())
-						.tags(tags).description(JDK_GARBAGE_COLLECTION + "Total pause").register(metricsRegistry);
-				Gauge.builder(JDK_GARBAGE_COLLECTION + LONGEST_PAUSE,
-								recordedEvent, e -> e.getDuration(LONGEST_PAUSE).toMillis())
-						.tags(tags).description(JDK_GARBAGE_COLLECTION + " Longest pause").register(metricsRegistry);
-			});
+			extractJDKGCToGauge(metricsRegistry, es);
 
 			es.onEvent(JDK_GCHEAP_SUMMARY, recordedEvent -> {
 				Gauge.builder(JDK_GCHEAP_SUMMARY + HEAP_USED, recordedEvent, e -> e.getLong(HEAP_USED))
@@ -67,6 +51,30 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 		} catch (IOException e) {
 			throw new RuntimeException("Couldn't process event", e);
 		}
+	}
+
+	private static void extractJDKGCToGauge(CompositeMeterRegistry metricsRegistry, EventStream es) {
+		es.onEvent(JDK_GARBAGE_COLLECTION, recordedEvent -> {
+			List<Tag> tags = Arrays.asList(new ImmutableTag(NAME, recordedEvent.getString(NAME)),
+					new ImmutableTag(CAUSE, recordedEvent.getString(CAUSE)));
+			Gauge.builder(JDK_GARBAGE_COLLECTION + SUM_OF_PAUSES,
+							recordedEvent, e -> e.getDuration(SUM_OF_PAUSES).toMillis())
+					.tags(tags).description(JDK_GARBAGE_COLLECTION + "Total pause").register(metricsRegistry);
+			Gauge.builder(JDK_GARBAGE_COLLECTION + LONGEST_PAUSE,
+							recordedEvent, e -> e.getDuration(LONGEST_PAUSE).toMillis())
+					.tags(tags).description(JDK_GARBAGE_COLLECTION + " Longest pause").register(metricsRegistry);
+		});
+	}
+
+	private static void extractJDKCpuLoadToGauge(CompositeMeterRegistry metricsRegistry, EventStream es) {
+		es.onEvent(JDK_CPULOAD, recordedEvent -> {
+			Gauge.builder(JDK_CPULOAD + MACHINE_TOTAL, recordedEvent, e -> 100 * e.getFloat(MACHINE_TOTAL))
+					.description(JDK_CPULOAD + "Machine total %").register(metricsRegistry);
+			Gauge.builder(JDK_CPULOAD + JVM_USER, recordedEvent, e -> 100 * e.getFloat(JVM_USER))
+					.description(JDK_CPULOAD + "JVM User %").register(metricsRegistry);
+			Gauge.builder(JDK_CPULOAD + JVM_SYSTEM, recordedEvent, e -> 100 * e.getFloat(JVM_SYSTEM))
+					.description(JDK_CPULOAD + "JVM System %").register(metricsRegistry);
+		});
 	}
 
 }
