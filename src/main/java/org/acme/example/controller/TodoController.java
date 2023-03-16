@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -48,7 +49,7 @@ public class TodoController {
             item.setId(UUID.randomUUID());
             todoRepository.save(item);
 
-            tags.put(item, item.getContent().toUpperCase());
+            tags.put(item, item.getContent().toUpperCase()+"_created_on_"+ LocalDateTime.now());
             String message = String.format("Entity created and owner has tags %d %s", tags.size(), tags.values().stream()
                     .map(v -> v.toLowerCase() + "=" + v)
                     .collect(Collectors.joining(", ", "{", "}")));

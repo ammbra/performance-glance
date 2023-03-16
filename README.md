@@ -29,7 +29,7 @@ Uncomment the `maven-dependency-plugin` plugin in `pom.xml`:
 Then run the following commands in a terminal window:
 
 ```shell
-mvn verify -DskipTests
+mvn verify
 jdeps --ignore-missing-deps -q -recursive --multi-release 19 \
   --print-module-deps --class-path 'target/libs/*' target/spring-todo-app.jar
 ```
@@ -83,6 +83,7 @@ rate(jdk_CPULoadmachineTotal[1m])
 or rate(http_server_requests_seconds_sum{method="POST", uri="/api/todo"}[1m]) 
 or rate(http_server_requests_seconds_sum{method="GET", uri="/api/todo"}[1m]) 
 or rate(http_server_requests_seconds_sum{method="PUT", uri="/api/todo"}[1m])
+or rate(http_server_requests_seconds_sum{method="DELETE"}[1m]) 
 ```
 
 ### Look at Garbage Collection Longest Pause vs HTTP server requests
@@ -92,6 +93,7 @@ rate(jdk_GarbageCollectionlongestPause[1m])
 or rate(http_server_requests_seconds_sum{method="POST", uri="/api/todo"}[1m]) 
 or rate(http_server_requests_seconds_sum{method="GET", uri="/api/todo"}[1m]) 
 or rate(http_server_requests_seconds_sum{method="PUT", uri="/api/todo"}[1m])
+or rate(http_server_requests_seconds_sum{method="DELETE"}[1m]) 
 ```
 
 ### Look at Garbage Collection Sum of Pauses vs HTTP server requests
@@ -101,6 +103,7 @@ rate(jdk_GarbageCollectionsumOfPauses[1m])
 or rate(http_server_requests_seconds_sum{method="POST", uri="/api/todo"}[1m]) 
 or rate(http_server_requests_seconds_sum{method="GET", uri="/api/todo"}[1m]) 
 or rate(http_server_requests_seconds_sum{method="PUT", uri="/api/todo"}[1m])
+or rate(http_server_requests_seconds_sum{method="DELETE"}[1m]) 
 ```
 ### Look at GCHeapSummary Heap Used
 
@@ -109,6 +112,7 @@ rate(jdk_GCHeapSummaryheapUsed[1m])
 or rate(http_server_requests_seconds_sum{method="POST", uri="/api/todo"}[1m]) 
 or rate(http_server_requests_seconds_sum{method="GET", uri="/api/todo"}[1m]) 
 or rate(http_server_requests_seconds_sum{method="PUT", uri="/api/todo"}[1m])
+or rate(http_server_requests_seconds_sum{method="DELETE"}[1m]) 
 ```
 
 
