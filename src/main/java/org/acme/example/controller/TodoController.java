@@ -22,12 +22,12 @@ import java.util.stream.Collectors;
 public class TodoController {
 
     private static final Logger logger = LoggerFactory.getLogger(TodoController.class);
-    private final TodoRepository todoRepository;
+    private final TodoRepository repository;
     private final Map<Todo, String> tags;
 
 
-    public TodoController(TodoRepository todoRepository) {
-        this.todoRepository = todoRepository;
+    public TodoController(TodoRepository repository) {
+        this.repository = repository;
         this.tags = new HashMap<>();
     }
 
@@ -35,7 +35,7 @@ public class TodoController {
     public ResponseEntity<?> getAllTodoItems() {
         logger.debug("GET request access '/api/todo' path.");
         try {
-            List<Todo> todos = todoRepository.findAll();
+            List<Todo> todos = repository.findAll();
             return new ResponseEntity<>(todos, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Nothing found", HttpStatus.NOT_FOUND);
@@ -47,7 +47,7 @@ public class TodoController {
         logger.debug("POST request access '/api/todo' path with item: {}", item);
         try {
             item.setId(UUID.randomUUID());
-            todoRepository.save(item);
+            repository.save(item);
 
             tags.put(item, item.getContent().toUpperCase()+"_created_on_"+ LocalDateTime.now());
             String message = String.format("Entity created and owner has tags %d %s", tags.size(), tags.values().stream()
@@ -63,9 +63,9 @@ public class TodoController {
     public ResponseEntity<String> updateTodoItem(@RequestBody Todo item) {
         logger.debug("PUT request access '/api/todo' path with item {}", item);
         try {
-            Optional<Todo> todoItem = todoRepository.findById(item.getId());
+            Optional<Todo> todoItem = repository.findById(item.getId());
             if (todoItem.isPresent()) {
-                todoRepository.save(item);
+                repository.save(item);
                 return new ResponseEntity<>("Entity updated", HttpStatus.OK);
             }
             return new ResponseEntity<>("Entity not found", HttpStatus.NOT_FOUND);
@@ -74,13 +74,14 @@ public class TodoController {
             return new ResponseEntity<>("Update entity failed", HttpStatus.NOT_FOUND);
         }
     }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteTodoItem(@PathVariable("id") UUID id) {
         logger.debug("DELETE request access '/api/todo/{}' path.", id);
         try {
-            Optional<Todo> todoItem = todoRepository.findById(id);
+            Optional<Todo> todoItem = repository.findById(id);
             if (todoItem.isPresent()) {
-                todoRepository.delete(todoItem.get());
+                repository.delete(todoItem.get());
                 tags.remove(todoItem.get());
                 String message = String.format("Entity deleted and owner has tags %d %s", tags.size(), tags.values().stream()
                         .map(v -> v.toLowerCase() + "=" + v)
@@ -92,6 +93,5 @@ public class TodoController {
             logger.error("Error occurred during delete: ", e);
             return new ResponseEntity<>("Deleting entity failed", HttpStatus.NOT_FOUND);
         }
-
     }
 }

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo "jstat -gcutil 1 25 250"
-docker exec -it springboot-todo-service sh -c "jstat -gcutil 1 25 250 > /recordings/gcstats.txt"
+echo "jstat -gcutil -h10 1 25 250"
+docker exec -it springboot-todo-service sh -c "jstat -gcutil -h10 1 25 250 > /recordings/gcstats.txt"
 
 read -p "Print heap summaries? " -n 1 -r
 echo    # (optional) move to a new line

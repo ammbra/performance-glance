@@ -8,6 +8,7 @@ import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import jdk.jfr.consumer.EventStream;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
+@Order(2)
 public class ApplicationStartup implements ApplicationListener<ApplicationReadyEvent> {
 	public static final String JDK_GCHEAP_SUMMARY = "jdk.GCHeapSummary";
 	public static final String JDK_CPULOAD = "jdk.CPULoad";
