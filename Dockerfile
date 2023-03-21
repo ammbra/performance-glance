@@ -1,5 +1,5 @@
 # Example of custom Java runtime using jlink in a multi-stage container build
-FROM openjdk:19-jdk-oraclelinux8 as jre-build
+FROM openjdk:20-jdk-oraclelinux8 as jre-build
 
 # Create a custom Java runtime
 RUN $JAVA_HOME/bin/jlink \
