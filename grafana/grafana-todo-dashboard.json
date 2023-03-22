@@ -209,7 +209,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "rate(http_server_requests_seconds_sum{method=\"GET\"}[$__rate_interval])",
+          "expr": "sum(rate(http_server_requests_seconds_sum{method=\"GET\"}[$__rate_interval]))",
           "legendFormat": "GET /api/todo",
           "range": true,
           "refId": "A"
@@ -220,7 +220,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "rate(http_server_requests_seconds_sum{method=\"POST\"}[$__rate_interval])",
+          "expr": "sum(rate(http_server_requests_seconds_sum{method=\"POST\"}[$__rate_interval]))",
           "legendFormat": "POST /api/todo",
           "range": true,
           "refId": "B"
@@ -231,7 +231,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "rate(http_server_requests_seconds_sum{method=\"DELETE\"}[$__rate_interval])",
+          "expr": "sum(rate(http_server_requests_seconds_sum{method=\"DELETE\"}[$__rate_interval]))",
           "legendFormat": "DELETE /api/todo/{id}",
           "range": true,
           "refId": "C"
@@ -242,7 +242,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "rate(http_server_requests_seconds_sum{method=\"PUT\"}[$__rate_interval])",
+          "expr": "sum(rate(http_server_requests_seconds_sum{method=\"PUT\"}[$__rate_interval]))",
           "legendFormat": "PUT /api/todo",
           "range": true,
           "refId": "D"
@@ -335,7 +335,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "irate(http_server_requests_seconds_count{uri=\"/api/todo\", method=\"GET\"}[$__rate_interval])",
+          "expr": "sum(irate(http_server_requests_seconds_count{uri=\"/api/todo\", method=\"GET\"}[$__rate_interval]))",
           "legendFormat": "GET /api/todo",
           "range": true,
           "refId": "A"
@@ -346,7 +346,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "irate(http_server_requests_seconds_count{uri=\"/api/todo\", method=\"POST\"}[$__rate_interval])",
+          "expr": "sum(irate(http_server_requests_seconds_count{uri=\"/api/todo\", method=\"POST\"}[$__rate_interval]))",
           "legendFormat": "POST /api/todo",
           "range": true,
           "refId": "B"
@@ -357,7 +357,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "irate(http_server_requests_seconds_count{uri=\"/api/todo/{id}\", method=\"DELETE\"}[$__rate_interval])",
+          "expr": "sum(irate(http_server_requests_seconds_count{uri=\"/api/todo/{id}\", method=\"DELETE\"}[$__rate_interval]))",
           "legendFormat": "DELETE /api/todo",
           "range": true,
           "refId": "C"
@@ -368,7 +368,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "irate(http_server_requests_seconds_count{uri=\"/api/todo\", method=\"PUT\"}[$__rate_interval])",
+          "expr": "sum(irate(http_server_requests_seconds_count{uri=\"/api/todo\", method=\"PUT\"}[$__rate_interval]))",
           "legendFormat": "PUT /api/todo",
           "range": true,
           "refId": "D"
@@ -473,7 +473,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "irate(http_server_requests_seconds_count{uri=\"/api/todo\", method=\"GET\"}[$__rate_interval])",
+          "expr": "sum(irate(http_server_requests_seconds_count{uri=\"/api/todo\", method=\"GET\"}[$__rate_interval]))",
           "legendFormat": "GET /api/todo",
           "range": true,
           "refId": "A"
@@ -484,7 +484,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "irate(http_server_requests_seconds_count{uri=\"/api/todo\", method=\"POST\"}[$__rate_interval])",
+          "expr": "sum(irate(http_server_requests_seconds_count{uri=\"/api/todo\", method=\"POST\"}[$__rate_interval]))",
           "legendFormat": "POST /api/todo",
           "range": true,
           "refId": "B"
@@ -495,7 +495,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "irate(http_server_requests_seconds_count{uri=\"/api/todo/{id}\", method=\"DELETE\"}[$__rate_interval])",
+          "expr": "sum(irate(http_server_requests_seconds_count{uri=\"/api/todo/{id}\", method=\"DELETE\"}[$__rate_interval]))",
           "legendFormat": "DELETE /api/todo",
           "range": true,
           "refId": "C"
@@ -506,7 +506,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "irate(http_server_requests_seconds_count{uri=\"/api/todo\", method=\"PUT\"}[$__rate_interval])",
+          "expr": "sum(irate(http_server_requests_seconds_count{uri=\"/api/todo\", method=\"PUT\"}[$__rate_interval]))",
           "legendFormat": "PUT /api/todo",
           "range": true,
           "refId": "D"
