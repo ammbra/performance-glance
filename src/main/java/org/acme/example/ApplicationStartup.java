@@ -16,7 +16,6 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-@Order(2)
 public class ApplicationStartup implements ApplicationListener<ApplicationReadyEvent> {
 	public static final String JDK_GCHEAP_SUMMARY = "jdk.GCHeapSummary";
 	public static final String JDK_CPULOAD = "jdk.CPULoad";
