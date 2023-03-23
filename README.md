@@ -30,7 +30,7 @@ Then run the following commands in a terminal window:
 
 ```shell
 mvn verify
-jdeps --ignore-missing-deps -q -recursive --multi-release 19 \
+jdeps --ignore-missing-deps -q -recursive --multi-release 20 \
   --print-module-deps --class-path 'target/libs/*' target/spring-todo-app.jar
 ```
 

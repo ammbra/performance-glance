@@ -14,13 +14,12 @@ RUN $JAVA_HOME/bin/jlink \
 # Define your base image
 FROM oraclelinux:8-slim
 
-ENV JAVA_HOME /usr/java/openjdk-19
+ENV JAVA_HOME /usr/java/openjdk-20
 ENV PATH $JAVA_HOME/bin:$PATH
 
 COPY --from=jre-build /javaruntime $JAVA_HOME
 
 # Continue with your application deployment
-RUN mkdir config
 COPY ./target/spring-todo-app.jar /app.jar
 COPY entrypoint.sh /entrypoint.sh
 COPY myprofile.jfc myprofile.jfc
