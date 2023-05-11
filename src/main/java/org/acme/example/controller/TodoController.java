@@ -99,14 +99,17 @@ public class TodoController {
             method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> simulateOverload() {
         logger.debug("Code that triggers an OOM");
-        while(true) {
+        int count = 0;
+        while(count < 30000) {
             Todo todo = new Todo();
             List<UUID> ids = repository.findAll().stream().map(t -> t.getId()).toList();
+            count = ids.size();
             for (UUID id : ids) {
                 todo.setId(id);
                 todo.setContent("Another todo item " + todo.getContent()+id);
                 this.updateTodoItem(todo);
             }
         }
+        return new ResponseEntity<>("High load achieved", HttpStatus.OK);
     }
 }
