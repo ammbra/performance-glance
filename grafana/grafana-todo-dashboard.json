@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -84,7 +83,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "api_todo_get_seconds_sum",
+          "expr": "rate(api_todo_get_seconds_count[$__rate_interval])",
           "legendFormat": "GET /api/todo",
           "range": true,
           "refId": "A"
@@ -95,7 +94,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "api_todo_post_seconds_sum",
+          "expr": "rate(api_todo_post_seconds_count[$__rate_interval])",
           "legendFormat": "POST /api/todo",
           "range": true,
           "refId": "B"
@@ -106,7 +105,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "api_todo_delete_seconds_sum",
+          "expr": "rate(api_todo_delete_seconds_count[$__rate_interval])",
           "legendFormat": "DELETE /api/todo/{id}",
           "range": true,
           "refId": "C"
@@ -117,7 +116,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "api_todo_put_seconds_sum",
+          "expr": "rate(api_todo_put_seconds_count[$__rate_interval])",
           "legendFormat": "PUT /api/todo",
           "range": true,
           "refId": "D"
@@ -139,11 +138,13 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "$$hashKey": "object:219",
+          "format": "string",
           "logBase": 1,
           "show": true
         },
         {
+          "$$hashKey": "object:220",
           "format": "short",
           "logBase": 1,
           "show": true
@@ -289,7 +290,8 @@
       },
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unit": "string"
         },
         "overrides": []
       },
@@ -379,7 +381,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "jdk_GCHeapSummaryheapUsed",
+          "expr": "rate(jdk_GCHeapSummaryheapUsed[$__rate_interval])",
           "hide": false,
           "legendFormat": "GCHeapSummaryheapUsed",
           "range": true,
@@ -402,11 +404,13 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "$$hashKey": "object:314",
+          "format": "string",
           "logBase": 1,
           "show": true
         },
         {
+          "$$hashKey": "object:315",
           "format": "short",
           "logBase": 1,
           "show": true
