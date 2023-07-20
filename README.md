@@ -46,7 +46,7 @@ You can access the following endpoints:
 |-------------|-----------------------|
 | Todo App    | http://localhost:8080 |
 | Prometheus  | http://localhost:9090 |
-| Grafana     | http://localhost:300  |
+| Grafana     | http://localhost:3000  |
 
 Now create some requests by running:
 
