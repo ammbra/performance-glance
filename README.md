@@ -30,7 +30,7 @@ Then run the following commands in a terminal window:
 
 ```shell
 mvn verify
-jdeps --ignore-missing-deps -q -recursive --multi-release 20 \
+jdeps --ignore-missing-deps -q -recursive --multi-release 21 \
   --print-module-deps --class-path 'target/libs/*' target/spring-todo-app.jar
 ```
 
@@ -46,7 +46,7 @@ You can access the following endpoints:
 |-------------|-----------------------|
 | Todo App    | http://localhost:8080 |
 | Prometheus  | http://localhost:9090 |
-| Grafana     | http://localhost:300  |
+| Grafana     | http://localhost:3000 |
 
 Now create some requests by running:
 
@@ -114,5 +114,3 @@ or rate(http_server_requests_seconds_sum{method="GET", uri="/api/todo"}[1m])
 or rate(http_server_requests_seconds_sum{method="PUT", uri="/api/todo"}[1m])
 or rate(http_server_requests_seconds_sum{method="DELETE"}[1m]) 
 ```
-
-

@@ -4,6 +4,9 @@ while true
 do
   echo "jcmd 1 JFR.dump name=1"
   docker exec -d -it springboot-todo-service sh -c "jcmd 1 JFR.dump name=1"
-  docker exec -d -it springboot-todo-service sh -c "jfr print --events OldObjectSample recordings/recording.jfr>recordings/event.txt"
+  docker exec -d -it springboot-todo-service sh -c "jfr view allocation-by-site > recordings/allocation.txt"
+  docker exec -d -it springboot-todo-service sh -c "jfr view memory-leaks-by-site > recordings/mem_leaks.txt"
+  docker exec -d -it springboot-todo-service sh -c "jfr view hot-methods > recordings/hot-methods.txt"
+
   sleep 60;
 done
