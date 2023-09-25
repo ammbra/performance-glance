@@ -10,7 +10,6 @@ RUN $JAVA_HOME/bin/jlink \
 	--compress=2 \
 	--output /javaruntime
 
-
 # Define your base image
 FROM oraclelinux:8-slim
 
@@ -21,8 +20,8 @@ COPY --from=jre-build /javaruntime $JAVA_HOME
 
 # Continue with your application deployment
 COPY ./target/spring-todo-app.jar /app.jar
+COPY ./scripts/myprofile.jfc myprofile.jfc
 COPY entrypoint.sh /entrypoint.sh
-COPY myprofile.jfc myprofile.jfc
 
 RUN groupadd -r appuser && useradd -r -g appuser appuser
 RUN chmod +x /entrypoint.sh

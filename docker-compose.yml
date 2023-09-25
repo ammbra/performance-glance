@@ -8,8 +8,9 @@ services:
     environment:
       JDK_JAVA_OPTIONS: >
         -XX:+HeapDumpOnOutOfMemoryError
+        -Xms768m -Xmx768m -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=70
+        -XX:NativeMemoryTracking=summary
         -XX:StartFlightRecording:filename=recordings/recording.jfr,settings=myprofile.jfc,maxage=5m,dumponexit=true
-        -XX:NativeMemoryTracking=summary -Xms768m -Xmx768m -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=70
     volumes:
       - ./recordings:/recordings
     ports:
