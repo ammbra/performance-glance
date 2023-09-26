@@ -7,6 +7,7 @@ import jdk.jfr.*;
 @Category("RestController")
 @Description("Invocation of a RestController method annotated with @RequestMapping")
 @StackTrace(false)
+@Threshold("1 s")
 public class RestEndpointInvocationEvent extends Event {
 
     static final String NAME = "org.acme.example.RestController";
