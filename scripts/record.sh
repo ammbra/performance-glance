@@ -10,5 +10,5 @@ do
   docker exec -d -it springboot-todo-service sh -c "jcmd 1 JFR.view memory-leaks-by-site > recordings/mem_leaks.txt"
   echo "jcmd 1 JFR.view hot-methods"
   docker exec -d -it springboot-todo-service sh -c "jcmd 1 JFR.view hot-methods > recordings/hot-methods.txt"
-  sleep 60;
+  sleep 10;
 done
