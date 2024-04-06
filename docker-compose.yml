@@ -10,9 +10,10 @@ services:
         -XX:+HeapDumpOnOutOfMemoryError
         -Xms768m -Xmx768m -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=70
         -XX:NativeMemoryTracking=summary
-        -XX:StartFlightRecording:filename=recordings/recording.jfr,settings=myprofile.jfc,maxage=5m,dumponexit=true
+        -XX:StartFlightRecording:filename=recordings/recording.jfr,settings=/myprofile.jfc,maxage=5m,dumponexit=true
     volumes:
       - ./recordings:/recordings
+      - ./scripts/myprofile.jfc:/myprofile.jfc
     ports:
       - 8080:8080
       - 1099:1099
