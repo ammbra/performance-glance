@@ -30,7 +30,7 @@ Then run the following commands in a terminal window:
 
 ```shell
 mvn verify
-jdeps --ignore-missing-deps -q -recursive --multi-release 20 \
+jdeps --ignore-missing-deps -q -recursive --multi-release 21 \
   --print-module-deps --class-path 'target/libs/*' target/spring-todo-app.jar
 ```
 
@@ -114,5 +114,3 @@ or rate(http_server_requests_seconds_sum{method="GET", uri="/api/todo"}[1m])
 or rate(http_server_requests_seconds_sum{method="PUT", uri="/api/todo"}[1m])
 or rate(http_server_requests_seconds_sum{method="DELETE"}[1m]) 
 ```
-
-
